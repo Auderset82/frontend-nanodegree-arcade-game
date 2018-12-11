@@ -1,3 +1,32 @@
+
+let timer_element = document.querySelector('.time');
+let currentTimer;
+//resetTimer(currentTimer);
+seconds = 0;
+currentTimer = setInterval(incrementSeconds, 10);
+let best_time_element = document.querySelector('.best-time');
+let best_time = 0;
+best_time_element.innerHTML = best_time;
+
+
+function incrementSeconds() {
+    seconds += 1;
+    timer_element.innerText = seconds;
+}
+
+function initTime() {
+    currentTimer = setInterval(function() {
+      //  $time.text(`${second}`)
+        second = second + 1
+    }, 10);
+}
+
+function resetTimer(timer) {
+    if (timer) {
+        clearInterval(timer);
+    }
+}
+
 // Enemies our player must avoid
 // var Enemy = function() {
 //     // Variables applied to each of our instances go here,
@@ -23,6 +52,10 @@ class Enemy {
         if (Math.abs(this.x - player.x) < 45 && Math.abs(this.y - player.y) < 45) {
             player.x = 202;
             player.y = 405;
+            initTime();
+            resetTimer(currentTimer);
+            seconds = 0;
+            currentTimer = setInterval(incrementSeconds, 10);
         }
     }
 
@@ -67,12 +100,36 @@ class Player {
             this.y = this.y + 83;
         }
         if (this.y < 0) {
+            check_besttime();
+            initTime();
+            resetTimer(currentTimer);
+
             setTimeout(function() {
                 player.x = 202;
                 player.y = 405;
+
+                seconds = 0;
+                currentTimer = setInterval(incrementSeconds, 10);
             }, 500);
+
+
         }
     }
+}
+
+function check_besttime () {
+//  best_time = best_time_element.value;
+  if (best_time == 0) {
+    best_time = seconds;
+    best_time_element.innerHTML = best_time;
+  }
+  else {
+    if (best_time > seconds) {
+      best_time = seconds;
+      best_time_element.innerHTML = best_time;
+    }
+
+  }
 }
 
 //Generation of our Player
