@@ -39,7 +39,10 @@ class Enemy {
 		}
 		this.x = (this.x + this.speed * dt);
 
-		if (Math.abs(this.x - player.x) < 45 && Math.abs(this.y - player.y) < 45) {
+		if (player.x < this.x + 80 &&
+        player.x + 80 > this.x &&
+        player.y < this.y +60 &&
+        60 + player.y > this.y) {
 			resetTimer(currentTimer);
 			seconds = 0;
 			currentTimer = setInterval(initTime, 10);
@@ -97,7 +100,6 @@ class Player {
 				seconds = 0;
 				currentTimer = setInterval(initTime, 10);
 				initTime();
-				//currentTimer = setInterval(incrementSeconds, 10);
 			}, 500);
 		}
 	}
